@@ -1,22 +1,11 @@
 const express=require('express')
 const router=express.Router()
-
-const path=require('path')
-
-
-router.get("/", (req, res, next) => {
-    res.sendFile(path.join(__dirname, "..", "views", "signUp.html"));
-  });
+const signUpController = require("../controllers/signUpController");
 
 
-  router.post("/signUp", (req, res, next) => {
-    const signUpInfo = {
-      userName: req.body.userName,
-      email: req.body.email,
-      password: req.body.password,
-    };
-    console.log(signUpInfo);
-    res.redirect("/");
-  });
+router.get("/", signUpController.getSignUpData);
+
+
+router.post("/signUp", signUpController.postSignUpData);
   
   module.exports = router;

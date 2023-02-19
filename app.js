@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+
+const sequelize=require('./database/database')
 // const { urlencoded } = require("body-parser");
 
 const signUpRouter = require("./routes/SignUp");
@@ -9,4 +11,11 @@ const app = express();
 
 app.use(signUpRouter);
 
-app.listen(3000);
+sequelize
+  .sync({ force: true })
+  .then(() => {
+    app.listen(3000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
